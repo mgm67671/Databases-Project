@@ -9,8 +9,8 @@ content_id_List = []
 license_ID_List = []
 
 #Creating values for Fall25_S0003_T1_College
-with open("TestInsert.sql", "w") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "w") as f:
+    for _ in range(50):
         name = fake.city().replace("'", "''") + " University"
         college_id = str(fake.random_int(min=1, max=99999999)).zfill(8)
         phone = fake.msisdn()[:10]  # ensures numeric format, 12 digits max
@@ -27,8 +27,8 @@ with open("TestInsert.sql", "w") as f:
     f.close()
 
 #Creating values for Fall25_S0003_T1_Studnet
-with open("TestInsert.sql","+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql","+a") as f:
+    for _ in range(50):
         name = fake.name().replace("'", "''")
         name_stripped = name.replace(" ", ".")
         email = name_stripped+"@edu.com"
@@ -48,8 +48,8 @@ with open("TestInsert.sql","+a") as f:
     f.close()
 
 #Creating values for Fall25_S0003_T1_Content_Provider
-with open("TestInsert.sql","+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql","+a") as f:
+    for _ in range(50):
         name = fake.company()
         content_id = str(fake.random_int(min=1, max=99999999)).zfill(8)
         content_id_List.append(content_id)
@@ -67,8 +67,8 @@ with open("TestInsert.sql","+a") as f:
     f.close()
 
 #Creating values for Fall25_S0003_T1_License 
-with open("TestInsert.sql", "+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "+a") as f:
+    for _ in range(50):
         license_ID = str(fake.random_int(min=1, max=99999999)).zfill(8)
         license_ID_List.append(license_ID)
         Provider_ID = content_id_List[_]
@@ -90,8 +90,8 @@ with open("TestInsert.sql", "+a") as f:
     f.close()
 
 #Creating values for Fall25_S0003_T1_Content
-with open("TestInsert.sql", "+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "+a") as f:
+    for _ in range(50):
         Title = fake.catch_phrase()
         content_id = content_id_List[_]
         license_ID = license_ID_List[_]
@@ -112,8 +112,8 @@ with open("TestInsert.sql", "+a") as f:
     f.close()
 
 #Creating values for Fall25_S0003_T1_Watch_History
-with open("TestInsert.sql", "+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "+a") as f:
+    for _ in range(50):
         student_email = student_email_List[_]
         content_id = content_id_List[_]
         Watch_ID = str(fake.random_int(min=1, max=99999999)).zfill(8)
@@ -133,8 +133,8 @@ with open("TestInsert.sql", "+a") as f:
     f.close()
 
 #Creating values for Fall25_S0003_T1_Watches
-with open("TestInsert.sql", "+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "+a") as f:
+    for _ in range(50):
         student_email = student_email_List[_]
         content_id = content_id_List[_]
         Rating = random.randint(1,10)
@@ -148,8 +148,8 @@ with open("TestInsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-with open("TestInsert.sql", "+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "+a") as f:
+    for _ in range(50):
         content_id = content_id_List[_]
         student_email = student_email_List[_]
 
@@ -162,8 +162,8 @@ with open("TestInsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-with open("TestInsert.sql", "+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "+a") as f:
+    for _ in range(50):
         Genre = fake.random_element(elements=("Action","Drama","Romance","Adventure", "Thiller", "Mystery", "Comedy", "Western"))
         student_email = student_email_List[_]
 
@@ -176,8 +176,8 @@ with open("TestInsert.sql", "+a") as f:
     f.flush()
     f.close()
     
-with open("TestInsert.sql", "+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "+a") as f:
+    for _ in range(50):
         SEndDate = datetime(2024,1,1)
         Start = fake.date_between(SEndDate)
         EStartDate = datetime(2025,1,1)
@@ -195,8 +195,8 @@ with open("TestInsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-with open("TestInsert.sql", "+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "+a") as f:
+    for _ in range(50):
         State = fake.state_abbr()
         zipcode = fake.zipcode()
         city = fake.city().replace("'", "''")
@@ -212,8 +212,8 @@ with open("TestInsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-with open("TestInsert.sql", "+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "+a") as f:
+    for _ in range(50):
         Genre = fake.random_element(elements=("Action","Drama","Romance","Adventure", "Thiller", "Mystery", "Comedy", "Western"))
         content_id = content_id_List[_]
 
@@ -226,8 +226,8 @@ with open("TestInsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-with open("TestInsert.sql", "+a") as f:
-    for _ in range(10):
+with open("projectDBinsert.sql", "+a") as f:
+    for _ in range(50):
         Language = fake.random_element(elements=("Spanish","English","French","Russian", "Portuguese", "German", "Hindi", "Arabic","Japanese","Korean"))
         content_id = content_id_List[_]
 
