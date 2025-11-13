@@ -100,9 +100,9 @@ CREATE TABLE Fall25_S0003_T1_Partnership_Information(
 
 CREATE TABLE Fall25_S0003_T1_Location(
     State char(2) NOT NULL,
-    Zip_Code char(5) NOT NULL,
-    City varchar2(16) NOT NULL,
-    Street_Address varchar2(32) NOT NULL,
+    Zip_Code char(16) NOT NULL,
+    City varchar2(64) NOT NULL,
+    Street_Address varchar2(64) NOT NULL,
     College_ID char(8) NOT NULL,
     CONSTRAINT fk_CID3 foreign key(College_ID) references Fall25_S0003_T1_College(College_ID),
     CONSTRAINT uk_L UNIQUE (State,Zip_Code,City,Street_Address,College_ID)

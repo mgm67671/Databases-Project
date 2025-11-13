@@ -148,4 +148,94 @@ with open("TestInsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-#with open("TestingInsert.sql", "+a") as f:
+with open("TestInsert.sql", "+a") as f:
+    for _ in range(10):
+        content_id = content_id_List[_]
+        student_email = student_email_List[_]
+
+        insert_stmt = (
+            f"INSERT INTO FALL25_S0003_T1_Favorite_Content"
+            f"(Content_ID,Student_Email)"
+            f"VALUES ('{content_id}','{student_email}');\n"
+        )
+        f.write(insert_stmt)
+    f.flush()
+    f.close()
+
+with open("TestInsert.sql", "+a") as f:
+    for _ in range(10):
+        Genre = fake.random_element(elements=("Action","Drama","Romance","Adventure", "Thiller", "Mystery", "Comedy", "Western"))
+        student_email = student_email_List[_]
+
+        insert_stmt = (
+            f"INSERT INTO FALL25_S0003_T1_Favorite_Genre"
+            f"(Genre,Student_Email)"
+            f"VALUES ('{Genre}','{student_email}');\n"
+        )
+        f.write(insert_stmt)
+    f.flush()
+    f.close()
+    
+with open("TestInsert.sql", "+a") as f:
+    for _ in range(10):
+        SEndDate = datetime(2024,1,1)
+        Start = fake.date_between(SEndDate)
+        EStartDate = datetime(2025,1,1)
+        EEndDate = datetime(2030,1,1)
+        End = fake.date_between(EStartDate,EEndDate)
+        license_cost = fake.pricetag()
+        college_id = college_id_List[_]
+
+        insert_stmt = (
+            f"INSERT INTO Fall25_S0003_T1_Partnership_Information"
+            f"(Start_Date,End_Date,Discount,College_ID)"
+            f"VALUES (TO_DATE('{Start}', 'YYYY-MM-DD'), TO_DATE('{End}', 'YYYY-MM-DD'),'{license_cost}','{college_id}');\n"
+        )
+        f.write(insert_stmt)
+    f.flush()
+    f.close()
+
+with open("TestInsert.sql", "+a") as f:
+    for _ in range(10):
+        State = fake.state_abbr()
+        zipcode = fake.zipcode()
+        city = fake.city().replace("'", "''")
+        street = fake.street_address()
+        college_id = college_id_List[_]
+
+        insert_stmt = (
+            f"INSERT INTO Fall25_S0003_T1_Location"
+            f"(State,Zip_Code,City,Street_Address,College_ID)"
+            f"VALUES ('{State}','{zipcode}','{city}','{street}','{college_id}');\n"
+        )
+        f.write(insert_stmt)
+    f.flush()
+    f.close()
+
+with open("TestInsert.sql", "+a") as f:
+    for _ in range(10):
+        Genre = fake.random_element(elements=("Action","Drama","Romance","Adventure", "Thiller", "Mystery", "Comedy", "Western"))
+        content_id = content_id_List[_]
+
+        insert_stmt = (
+            f"INSERT INTO Fall25_S0003_T1_Genre"
+            f"(Genre,Content_ID)"
+            f"VALUES ('{Genre}','{content_id}');\n"
+        )
+        f.write(insert_stmt)
+    f.flush()
+    f.close()
+
+with open("TestInsert.sql", "+a") as f:
+    for _ in range(10):
+        Language = fake.random_element(elements=("Spanish","English","French","Russian", "Portuguese", "German", "Hindi", "Arabic","Japanese","Korean"))
+        content_id = content_id_List[_]
+
+        insert_stmt = (
+            f"INSERT INTO Fall25_S0003_T1_Language"
+            f"(Language,Content_ID)"
+            f"VALUES ('{Language}','{content_id}');\n"
+        )
+        f.write(insert_stmt)
+    f.flush()
+    f.close()
