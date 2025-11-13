@@ -16,7 +16,6 @@ with open("projectDBinsert.sql", "w") as f:
         phone = fake.msisdn()[:10]  # ensures numeric format, 12 digits max
         name_stripped = name.replace(" ", "")
         email = name_stripped+"@edu.com"
-        #email = fake.email()
         college_id_List.append(college_id)
         insert_stmt = (
             f"INSERT INTO Fall25_S0003_T1_College "
@@ -148,6 +147,7 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
+#Creating values for Fall25_S0003_T1_Favorite_Content
 with open("projectDBinsert.sql", "+a") as f:
     for _ in range(50):
         content_id = content_id_List[_]
@@ -162,6 +162,7 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
+#Creating values for Fall25_S0003_T1_Favorite_Genre
 with open("projectDBinsert.sql", "+a") as f:
     for _ in range(50):
         Genre = fake.random_element(elements=("Action","Drama","Romance","Adventure", "Thiller", "Mystery", "Comedy", "Western"))
@@ -175,7 +176,8 @@ with open("projectDBinsert.sql", "+a") as f:
         f.write(insert_stmt)
     f.flush()
     f.close()
-    
+
+#Creating values for Fall25_S0003_T1_Partnership_Information
 with open("projectDBinsert.sql", "+a") as f:
     for _ in range(50):
         SEndDate = datetime(2024,1,1)
@@ -195,6 +197,7 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
+#Fall25_S0003_T1_Location
 with open("projectDBinsert.sql", "+a") as f:
     for _ in range(50):
         State = fake.state_abbr()
@@ -212,6 +215,7 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
+#Fall25_S0003_T1_Genre
 with open("projectDBinsert.sql", "+a") as f:
     for _ in range(50):
         Genre = fake.random_element(elements=("Action","Drama","Romance","Adventure", "Thiller", "Mystery", "Comedy", "Western"))
@@ -226,6 +230,7 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
+#Creating values for Fall25_S0003_T1_Langauge
 with open("projectDBinsert.sql", "+a") as f:
     for _ in range(50):
         Language = fake.random_element(elements=("Spanish","English","French","Russian", "Portuguese", "German", "Hindi", "Arabic","Japanese","Korean"))
