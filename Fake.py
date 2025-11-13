@@ -1,10 +1,12 @@
 from faker import Faker
 from datetime import datetime
+import random
 
 fake = Faker()
 college_id_List = []
 student_email_List = []
 content_id_List = []
+license_ID_List = []
 
 #Creating values for Fall25_S0003_T1_College
 with open("TestInsert.sql", "w") as f:
@@ -64,9 +66,11 @@ with open("TestInsert.sql","+a") as f:
     f.flush()
     f.close()
 
+#Creating values for Fall25_S0003_T1_License 
 with open("TestInsert.sql", "+a") as f:
     for _ in range(10):
         license_ID = str(fake.random_int(min=1, max=99999999)).zfill(8)
+        license_ID_List.append(license_ID)
         Provider_ID = content_id_List[_]
         license_type = fake.random_element(elements=("CC", "Fixed", "Royalty-Based", "Time-based","Revenue-sharing"))
         license_cost = fake.pricetag()
@@ -84,3 +88,64 @@ with open("TestInsert.sql", "+a") as f:
         f.write(insert_stmt)
     f.flush()
     f.close()
+
+#Creating values for Fall25_S0003_T1_Content
+with open("TestInsert.sql", "+a") as f:
+    for _ in range(10):
+        Title = fake.catch_phrase()
+        content_id = content_id_List[_]
+        license_ID = license_ID_List[_]
+        Maturity = fake.random_element(elements=("TV-Y", "TV-G", "TV-PG", "TV-14","TV-MA"))
+        Type = fake.random_element(elements=("Seasons","Movie","TV Shows"))
+        Seasons = fake.random_element(elements=("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight"))
+        Episodes = fake.random_element(elements=("1", "12", "24", "32", "60", "90", "120", "Cont"))
+        Year = random.randint(1960,2025)
+        Duration = fake.random_element(elements=("12", "24", "32", "60", "90", "120", "240", "300"))
+
+        insert_stmt = (
+            f"INSERT INTO FALL25_S0003_T1_Content"
+            f"(Title,Content_ID,License_ID,Maturity,Type,Seasons,Episodes,Year,Duration)"
+            f"VALUES ('{Title}', '{content_id}', '{license_ID}', '{Maturity}', '{Type}', '{Seasons}', '{Episodes}', '{Year}', '{Duration}');\n"
+        )
+        f.write(insert_stmt)
+    f.flush()
+    f.close()
+
+#Creating values for Fall25_S0003_T1_Watch_History
+with open("TestInsert.sql", "+a") as f:
+    for _ in range(10):
+        student_email = student_email_List[_]
+        content_id = content_id_List[_]
+        Watch_ID = str(fake.random_int(min=1, max=99999999)).zfill(8)
+        Watch_time = fake.time(pattern="%H:%M:%S")
+        SEndDate = datetime(2024,1,1)
+        Start = fake.date_between(SEndDate)
+        Device_Type = fake.random_element(elements=("Laptop","PC","Iphone","Android"))
+        Duration = fake.random_element(elements=("12", "24", "32", "60", "90", "120", "240", "300"))
+
+        insert_stmt = (
+            f"INSERT INTO FALL25_S0003_T1_Watch_History"
+            f"(Student_Email,Content_ID,Watch_ID,Watch_Time,Watch_Date,Device_Type,Duration)"
+            f"VALUES ('{student_email}','{content_id}','{Watch_ID}','{Watch_time}',TO_DATE('{Start}', 'YYYY-MM-DD'),'{Device_Type}','{Duration}');\n"
+        )
+        f.write(insert_stmt)
+    f.flush()
+    f.close()
+
+#Creating values for Fall25_S0003_T1_Watches
+with open("TestInsert.sql", "+a") as f:
+    for _ in range(10):
+        student_email = student_email_List[_]
+        content_id = content_id_List[_]
+        Rating = random.randint(1,10)
+
+        insert_stmt = (
+            f"INSERT INTO FALL25_S0003_T1_Watches"
+            f"(Student_Email,Content_ID,Rating)"
+            f"VALUES ('{student_email}','{content_id}','{Rating}');\n"
+        )
+        f.write(insert_stmt)
+    f.flush()
+    f.close()
+
+#with open("TestingInsert.sql", "+a") as f:

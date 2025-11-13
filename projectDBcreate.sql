@@ -7,7 +7,7 @@ CREATE TABLE Fall25_S0003_T1_College(
 );
 
 CREATE TABLE Fall25_S0003_T1_Student(
-    Name varchar2(18) NOT NULL,
+    Name varchar2(245) NOT NULL,
     Email varchar2(245) NOT NULL,
     College_ID char(8) NOT NULL,
     Student_ID char(8) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE Fall25_S0003_T1_Watch_History(
     Student_Email varchar2(245) NOT NULL,
     Content_ID char(10) NOT NULL,
     Watch_ID char(8) NOT NULL,
-    Watch_Time TIMESTAMP,
+    Watch_Time varchar2(16),
     Watch_Date DATE,
     Device_Type varchar2(128),
     Duration varchar2(8),
