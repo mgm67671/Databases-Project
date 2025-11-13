@@ -1,4 +1,4 @@
--- Format Settings (comment out if not needed)
+-- Format Settings
 set pagesize 5000
 set linesize 200
 set trimspool on
@@ -6,279 +6,505 @@ set tab off
 set wrap off
 set colsep ' '
 
--- Column display formats and headings
-column CollegeName                 format a30           heading 'COLLEGE'
-column TotalStudents               format 9999990       heading 'TOTAL_STUDENTS'
-column AvgWatchMinutes             format 9999990.000   heading 'AVG_MINUTES'
+-- Column display formats
+column CollegeName          format a35           heading 'College Name'
+column StudentCount         format 9999990       heading 'Student Count'
+column TotalWatches         format 9999990       heading 'Total Watches'
+column AvgDuration          format 9999990.00    heading 'Avg Duration'
 
-column ProviderName                format a30           heading 'PROVIDER'
-column TotalContent                format 9999990       heading 'TOTAL_CONTENT'
-column MaxLicenseCost              format 999999990.00  heading 'MAX_LICENSE_COST'
-column AvgLicenseCost              format 999999990.00  heading 'AVG_LICENSE_COST'
+column ProviderName         format a35           heading 'Provider Name'
+column LicenseType          format a20           heading 'License Type'
+column TotalCost            format 999999990.00  heading 'Total Cost'
 
-column GenreName                   format a15           heading 'GENRE'
-column StudentName                 format a25           heading 'STUDENT'
-column StudentEmail                format a40           heading 'STUDENT_EMAIL'
-column ContentWatched              format 9999990       heading 'CONTENT_WATCHED'
+column ContentType          format a15           heading 'Content Type'
+column ContentYear          format a15           heading 'Content Year'
+column ViewerCount          format 9999990       heading 'Viewer Count'
 
-column ContentTitle                format a50           heading 'CONTENT_TITLE'
-column UniqueViewers               format 9999990       heading 'UNIQUE_VIEWERS'
-column TotalViews                  format 9999990       heading 'TOTAL_VIEWS'
-column AvgRating                   format 990.000       heading 'AVG_RATING'
-column CollegesWatching            format a60           heading 'COLLEGES_WATCHING'
+column StudentName          format a30           heading 'Student Name'
+column WatchCount           format 9999990       heading 'Watch Count'
+column TotalMinutes         format 9999990       heading 'Total Minutes'
+column AvgCollegeMinutes    format 9999990.00    heading 'Avg College Minutes'
 
-column ProviderName                format a30           heading 'PROVIDER_NAME'
-column LicenseType                 format a20           heading 'LICENSE_TYPE'
-column LicenseCount                format 9999990       heading 'LICENSE_COUNT'
-column TotalLicenseCost            format 999999990.00  heading 'TOTAL_LICENSE_COST'
-column AvgLicenseCost              format 999999990.00  heading 'AVG_LICENSE_COST'
+column ContentTitle         format a50           heading 'Content Title'
+column AvgRating            format 990.00        heading 'Avg Rating'
 
-column WatchRank                   format 9999990       heading 'WATCH_RANK'
-column TotalWatches                format 9999990       heading 'TOTAL_WATCHES'
-column TotalMinutes                format 999999990     heading 'TOTAL_MINUTES'
-column RunningTotalMinutes         format 9999999990    heading 'RUNNING_TOTAL_MINUTES'
-
-column ContentType                 format a15           heading 'CONTENT_TYPE'
-column ContentYear                 format a15           heading 'CONTENT_YEAR'
-column AvgEpisodes                 format 990.000       heading 'AVG_EPISODES'
-
-column PartnershipDiscount         format 990.00        heading 'PARTNERSHIP_DISCOUNT'
-column ActiveStudents              format 9999990       heading 'ACTIVE_STUDENTS'
-column AvgWatchesPerStudent        format 9990.000      heading 'AVG_WATCHES_PER_STUDENT'
-column AvgUniqueContentPerStudent  format 9990.000      heading 'AVG_UNIQUE_CONTENT_PER_STUDENT'
+column Major                format a15           heading 'Major'
+column MajorCount           format 9999990       heading 'Major Count'
 
 -- End format settings
 
 -- ============================================================================
--- QUERY 1: GROUP BY AND AGGREGATE QUERY WITH MULTIPLE RELATIONS
--- Business Goal: Identify colleges with multiple active students and their
--- average watch time to prioritize partnership renewal and resource allocation.
+-- QUERY 1: GROUP BY WITH HAVING
+-- Find college names that have more than 3 students and show their total watches and average watch duration
 -- ============================================================================
-select 
+select
     COLLEGE.Name as CollegeName,
-    count(distinct STUDENT.Email) as TotalStudents,
     count(HISTORY.Watch_ID) as TotalWatches,
-    avg(
-        case 
-            when instr(HISTORY.Duration, ':') > 0 then
-                to_number(substr(HISTORY.Duration, 1, instr(HISTORY.Duration, ':') - 1)) * 60 + 
-                to_number(substr(HISTORY.Duration, instr(HISTORY.Duration, ':') + 1))
-            else
-                to_number(HISTORY.Duration)
-        end
-    ) as AvgWatchMinutes
-from 
-    FALL25_S0003_T1_COLLEGE COLLEGE
-    join FALL25_S0003_T1_STUDENT STUDENT on COLLEGE.College_ID = STUDENT.College_ID
-    join FALL25_S0003_T1_WATCH_HISTORY HISTORY on STUDENT.Email = HISTORY.Student_Email
-group by 
-    COLLEGE.Name, 
-    COLLEGE.College_ID
-having 
-    count(distinct STUDENT.Email) > 1
-    and count(HISTORY.Watch_ID) >= 2
-order by 
-    TotalStudents desc, TotalWatches desc, AvgWatchMinutes desc
-fetch first 15 rows only;
+    avg(to_number(HISTORY.Duration)) as AvgDuration
+from
+    Fall25_S0003_T1_College COLLEGE
+    join Fall25_S0003_T1_Student STUDENT
+        on COLLEGE.College_ID = STUDENT.College_ID
+    join Fall25_S0003_T1_Watch_History HISTORY
+        on STUDENT.Email = HISTORY.Student_Email
+group by
+    COLLEGE.Name
+having
+    count(distinct STUDENT.Email) > 3
+order by
+    TotalWatches desc;
+
+/* Example Output:
+    College Name                        Total Watches Avg Duration
+    ----------------------------------- ------------- ------------
+    Millsside University                           26       129.77
+    Mccartyton University                          24       110.33
+    North Kaitlyn University                       22       126.82
+    Lake Gail University                           21       121.71
+    New Debra University                           19       115.47
+    Allisonburgh University                        18       146.22
+    West Christinaton University                   16       166.25
+    Lynnmouth University                           16       116.38
+    North Beverly University                       15        83.60
+    Simsfurt University                            14        78.57
+    New Patrickburgh University                    14        76.00
+    South Trevor University                        13       152.92
+    Robinsonmouth University                       13       137.38
+
+    13 rows selected.
+*/
 
 -- ============================================================================
--- QUERY 2: DATA WAREHOUSE ANALYSIS WITH CUBE
--- Business Goal: Analyze yearly content consumption trends across all colleges
--- to understand platform growth patterns and content popularity by year.
+-- QUERY 2: GROUP BY WITH HAVING AND SUBQUERY
+-- Find the top 20 students who have watched content more times than the average student and show their student name and watch count
 -- ============================================================================
--- Analyze content consumption patterns by college, content type, and year with subtotals
-select 
-    coalesce(COLLEGE.Name, 'ALL COLLEGES') as CollegeName,
-    coalesce(CONTENT.Type, 'ALL TYPES') as ContentType,
-    coalesce(CONTENT.Year, 'ALL YEARS') as ContentYear,
-    count(distinct HISTORY.Student_Email) as UniqueViewers,
-    count(HISTORY.Watch_ID) as TotalViews,
-    avg(case when regexp_like(CONTENT.Episodes,'^\d+$') then to_number(CONTENT.Episodes) end) as AvgEpisodes
-from 
-    FALL25_S0003_T1_COLLEGE COLLEGE
-    join FALL25_S0003_T1_STUDENT STUDENT on COLLEGE.College_ID = STUDENT.College_ID
-    join FALL25_S0003_T1_WATCH_HISTORY HISTORY on STUDENT.Email = HISTORY.Student_Email
-    join FALL25_S0003_T1_CONTENT CONTENT on HISTORY.Content_ID = CONTENT.Content_ID
-where 
-    CONTENT.Year between '2015' and '2025'
-group by 
-    cube(COLLEGE.Name, CONTENT.Type, CONTENT.Year)
-order by 
-    CollegeName, 
-    ContentType, 
-    ContentYear;
-
--- ============================================================================
--- QUERY 3: DATA WAREHOUSE REVENUE ANALYSIS WITH ROLLUP
--- Business Goal: Calculate total licensing costs by provider with hierarchical 
--- subtotals to identify the most expensive content partnerships.
--- ============================================================================
-select 
-    coalesce(PROVIDER.Name, 'TOTAL ALL PROVIDERS') as ProviderName,
-    coalesce(LICENSE.License_Type, 'ALL LICENSE TYPES') as LicenseType,
-    count(LICENSE.License_ID) as LicenseCount,
-    sum(to_number(replace(replace(LICENSE.License_Cost,'$',''),',',''))) as TotalLicenseCost,
-    avg(to_number(replace(replace(LICENSE.License_Cost,'$',''),',',''))) as AvgLicenseCost
-from 
-    FALL25_S0003_T1_CONTENT_PROVIDER PROVIDER
-    join FALL25_S0003_T1_LICENSE LICENSE on PROVIDER.Content_ID = LICENSE.Provider_ID
-group by 
-    rollup(PROVIDER.Name, LICENSE.License_Type)
-/*having 
-    grouping(LICENSE.License_Type) = 1*/
-order by 
-    grouping(PROVIDER.Name), 
-    grouping(LICENSE.License_Type), 
-    TotalLicenseCost desc
-/*fetch first 20 rows only*/;
-
--- ============================================================================
--- QUERY 4: DIVISION QUERY - STUDENTS WHO RATED ALL WATCHED CONTENT
--- Business Goal: Find highly engaged students who provide ratings for every 
--- piece of content they watch, useful for identifying reliable reviewers.
--- ============================================================================
-select distinct 
-    s.Name as StudentName, 
-    s.Email as StudentEmail
-from 
-    FALL25_S0003_T1_STUDENT s
-where 
-    exists (select 1 from FALL25_S0003_T1_WATCH_HISTORY wh0 where wh0.Student_Email = s.Email)
-    and not exists (
-        select 1
-        from FALL25_S0003_T1_WATCH_HISTORY wh
-        where wh.Student_Email = s.Email
-        and not exists (
-            select 1
-            from FALL25_S0003_T1_WATCHES w
-            where w.Student_Email = s.Email
-              and w.Content_ID   = wh.Content_ID
+select
+    STUDENT.Name as StudentName,
+    count(HISTORY.Watch_ID) as WatchCount
+from
+    Fall25_S0003_T1_Student STUDENT
+    join Fall25_S0003_T1_Watch_History HISTORY
+        on STUDENT.Email = HISTORY.Student_Email
+group by
+    STUDENT.Name,
+    STUDENT.Email
+having
+    count(HISTORY.Watch_ID) > 
+    (
+        select 
+            avg(WatchCount)
+        from 
+        (
+            select 
+                count(*) as WatchCount
+            from 
+                Fall25_S0003_T1_Watch_History
+            group by 
+                Student_Email
         )
-    );
-
--- ============================================================================
--- QUERY 5: WINDOWING QUERY WITH OVER CLAUSE FOR STUDENT RANKING
--- Business Goal: Rank students by total watch time within each college to 
--- identify top viewers and calculate running totals for engagement metrics.
--- ============================================================================
-select *
-from (
-    select 
-        COLLEGE.Name as CollegeName,
-        STUDENT.Name as StudentName,
-        count(HISTORY.Watch_ID) as TotalWatches,
-        sum(
-            case 
-                when instr(HISTORY.Duration, ':') > 0 then
-                    to_number(substr(HISTORY.Duration, 1, instr(HISTORY.Duration, ':') - 1 )) * 60 + 
-                    to_number(substr(HISTORY.Duration, instr(HISTORY.Duration, ':') +1 ))
-                else
-                    to_number(HISTORY.Duration)
-            end
-        ) as TotalMinutes,
-        rank() over 
-        (
-            partition by COLLEGE.College_ID 
-            order by sum(
-                case 
-                    when instr(HISTORY.Duration, ':') > 0 then
-                        to_number(substr(HISTORY.Duration, 1, instr(HISTORY.Duration, ':') - 1 )) * 60 + 
-                        to_number(substr(HISTORY.Duration, instr(HISTORY.Duration, ':') +1 ))
-                    else
-                        to_number(HISTORY.Duration)
-                end
-            ) desc
-        ) as WatchRank,
-        sum(
-            sum(
-                case 
-                    when instr(HISTORY.Duration, ':') > 0 then
-                        to_number(substr(HISTORY.Duration, 1, instr(HISTORY.Duration, ':') - 1 )) * 60 + 
-                        to_number(substr(HISTORY.Duration, instr(HISTORY.Duration, ':') +1 ))
-                    else
-                        to_number(HISTORY.Duration)
-                end
-            )
-        ) 
-        over 
-        (
-            partition by COLLEGE.College_ID 
-            order by sum(
-                case 
-                    when instr(HISTORY.Duration, ':') > 0 then
-                        to_number(substr(HISTORY.Duration, 1, instr(HISTORY.Duration, ':') - 1 )) * 60 + 
-                        to_number(substr(HISTORY.Duration, instr(HISTORY.Duration, ':') +1 ))
-                    else
-                        to_number(HISTORY.Duration)
-                end
-            ) desc 
-            rows unbounded preceding    
-        ) as RunningTotalMinutes
-    from 
-        FALL25_S0003_T1_COLLEGE COLLEGE
-        join FALL25_S0003_T1_STUDENT STUDENT on COLLEGE.College_ID = STUDENT.College_ID
-        join FALL25_S0003_T1_WATCH_HISTORY HISTORY on STUDENT.Email = HISTORY.Student_Email
-    group by 
-        COLLEGE.Name, 
-        COLLEGE.College_ID, 
-        STUDENT.Name, 
-        STUDENT.Email
-)
-order by CollegeName, WatchRank
+    )
+order by
+    WatchCount desc
 fetch first 20 rows only;
 
--- ============================================================================
--- QUERY 6: CONTENT DISCOVERY WITH LIKE OPERATOR, ORDER BY, AND FETCH
--- Business Goal: Find the most popular content with specific keywords in the 
--- title to support content recommendation and marketing campaigns.
--- ============================================================================
-select 
-    CONTENT.Title as ContentTitle,
-    count(distinct HISTORY.Student_Email) as UniqueViewers,
-    count(HISTORY.Watch_ID) as TotalViews,
-    avg(to_number(WATCHES.Rating)) as AvgRating,
-    listagg(distinct COLLEGE.Name, ', ') within group (order by COLLEGE.Name) as CollegesWatching
-from 
-    FALL25_S0003_T1_CONTENT CONTENT
-    join FALL25_S0003_T1_WATCH_HISTORY HISTORY on CONTENT.Content_ID = HISTORY.Content_ID
-    join FALL25_S0003_T1_STUDENT STUDENT on HISTORY.Student_Email = STUDENT.Email
-    join FALL25_S0003_T1_COLLEGE COLLEGE on STUDENT.College_ID = COLLEGE.College_ID
-    left join FALL25_S0003_T1_WATCHES WATCHES on STUDENT.Email = WATCHES.Student_Email 
-        and CONTENT.Content_ID = WATCHES.Content_ID
-where 
-    CONTENT.Title like '%o%'
-group by 
-    CONTENT.Title, 
-    CONTENT.Content_ID
-order by 
-    UniqueViewers desc, 
-    AvgRating desc
-fetch first 10 rows only;
+/* Example Output:
+    Student Name                   Watch Count
+    ------------------------------ -----------
+    Jeremy Torres                            8
+    Timothy Gonzales                         7
+    Nicole Butler                            7
+    Christopher Haas                         7
+    Gilbert Williamson                       7
+    Timothy Saunders                         7
+    Sarah Robinson                           6
+    Trevor Rodriguez                         6
+    Nicholas Donaldson                       6
+    Evelyn Lewis                             5
+    Charles Dyer                             5
+    Scott Glenn                              5
+    Derek Taylor                             5
+    Ashley Miller                            5
+    Elizabeth Lopez                          5
+    Tracy Freeman                            5
+    Alice Parrish                            5
+    Daniel Burgess                           5
+    Anthony Thompson                         5
+    Lauren Olson                             5
+
+    20 rows selected.
+*/
 
 -- ============================================================================
--- QUERY 7: PROVIDER ENGAGEMENT WITH NESTED SUBQUERY AND AGGREGATION
--- Business Goal: Identify content providers with the highest viewer engagement 
--- by analyzing catalog size and average watch frequency per student.
+-- QUERY 3: GROUP BY WITH HAVING AND SUBQUERY
+-- Find the top 20 content titles that have been watched more times than average and show their content title and watch count
 -- ============================================================================
-select 
-    p.Name as ProviderName,
-    count(distinct wh.Student_Email) as ActiveStudents,
-    count(distinct c.Content_ID) as CatalogSize,
-    avg(stats.TotalWatches) as AvgWatchesPerStudent
-from 
-    FALL25_S0003_T1_CONTENT_PROVIDER p
-    join FALL25_S0003_T1_LICENSE l on p.Content_ID = l.Provider_ID
-    join FALL25_S0003_T1_CONTENT c on l.License_ID = c.License_ID
-    left join FALL25_S0003_T1_WATCH_HISTORY wh on c.Content_ID = wh.Content_ID
-    left join (
-        select Student_Email, count(*) as TotalWatches
-        from FALL25_S0003_T1_WATCH_HISTORY
-        group by Student_Email
-    ) stats on stats.Student_Email = wh.Student_Email
-group by 
-    p.Name
-having 
-    count(distinct wh.Student_Email) >= 1
-order by 
-    ActiveStudents desc, CatalogSize desc
-fetch first 10 rows only;
+select
+    CONTENT.Title as ContentTitle,
+    count(HISTORY.Watch_ID) as WatchCount
+from
+    Fall25_S0003_T1_Content CONTENT
+    join Fall25_S0003_T1_Watch_History HISTORY
+        on CONTENT.Content_ID = HISTORY.Content_ID
+group by
+    CONTENT.Title
+having
+    count(HISTORY.Watch_ID) > 
+    (
+        select 
+            avg(ContentWatches)
+        from 
+        (
+            select 
+                count(*) as ContentWatches
+            from 
+                Fall25_S0003_T1_Watch_History
+            group by 
+                Content_ID
+        )
+    )
+order by
+    WatchCount desc
+fetch first 20 rows only;
+
+/* Example Output:
+    Content Title                                      Watch Count
+    -------------------------------------------------- -----------
+    Self-enabling regional secured line                         10
+    Centralized context-sensitive instruction set                8
+    Streamlined contextually-based migration                     7
+    Organized clear-thinking adapter                             7
+    Triple-buffered even-keeled adapter                          7
+    Open-source 6thgeneration strategy                           7
+    Profit-focused systemic synergy                              7
+    Reverse-engineered radical budgetary management              7
+    Team-oriented non-volatile access                            7
+    Proactive actuating instruction set                          6
+    Devolved maximized implementation                            6
+    Reverse-engineered systemic open system                      6
+    Front-line attitude-oriented forecast                        6
+    Managed attitude-oriented support                            6
+    Re-engineered composite infrastructure                       6
+    Streamlined national system engine                           6
+    Programmable stable extranet                                 6
+    Triple-buffered impactful application                        6
+    Automated impactful architecture                             5
+    Sharable grid-enabled time-frame                             5
+
+    20 rows selected.
+*/
+
+-- ============================================================================
+-- QUERY 4: DATA WAREHOUSE WITH ROLLUP
+-- Find the top 25 provider names and license types with their total licensing costs including rollup subtotals
+-- ============================================================================
+select
+    coalesce(PROVIDER.Name, 'ALL PROVIDERS') as ProviderName,
+    coalesce(LICENSE.License_Type, 'ALL TYPES') as LicenseType,
+    sum
+    (
+        to_number
+        (
+            replace
+            (
+                replace(LICENSE.License_Cost,'$',''),
+                ',',
+                ''
+            )
+        )
+    ) as TotalCost
+from
+    Fall25_S0003_T1_Content_Provider PROVIDER
+    join Fall25_S0003_T1_License LICENSE
+        on PROVIDER.Content_ID = LICENSE.Provider_ID
+group by
+    rollup(PROVIDER.Name, LICENSE.License_Type)
+order by
+    TotalCost desc nulls last
+fetch first 25 rows only;
+
+/* Example Output:
+    Provider Name                       License Type            Total Cost
+    ----------------------------------- -------------------- -------------
+    ALL PROVIDERS                       ALL TYPES               1142341.16
+    Nguyen, Compton and Graham          ALL TYPES                284023.49
+    Morgan, Hines and Ferguson          ALL TYPES                205745.05
+    Black-White                         ALL TYPES                146540.60
+    Morgan, Hines and Ferguson          Revenue-sharing          132153.71
+    Gonzalez, Bell and Wilcox           ALL TYPES                127836.30
+    Lane, Lopez and Chapman             ALL TYPES                101349.73
+    Black-White                         CC                        99209.39
+    Nguyen, Compton and Graham          CC                        98914.36
+    Nguyen, Compton and Graham          Revenue-sharing           97554.41
+    West, Adkins and Stephens           ALL TYPES                 95585.70
+    James, Brown and Harris             ALL TYPES                 92584.39
+    West, Adkins and Stephens           CC                        89907.45
+    Nguyen, Compton and Graham          Fixed                     86493.87
+    James, Brown and Harris             Fixed                     85762.27
+    Lane, Lopez and Chapman             Fixed                     71107.89
+    Gonzalez, Bell and Wilcox           Royalty-Based             63699.79
+    Gonzalez, Bell and Wilcox           CC                        59222.02
+    Morgan, Hines and Ferguson          Royalty-Based             46281.77
+    Black-White                         Fixed                     38961.37
+    Morgan, Hines and Ferguson          Time-based                27308.89
+    Hunter-Nelson                       ALL TYPES                 24174.28
+    Hunter-Nelson                       CC                        23457.38
+    Lane, Lopez and Chapman             Royalty-Based             22170.38
+    Hanna-Middleton                     ALL TYPES                 13217.52
+
+    25 rows selected.
+*/ 
+
+-- ============================================================================
+-- QUERY 5: DATA WAREHOUSE WITH CUBE
+-- Find content types and content years between 2020 and 2025 with viewer counts at all aggregation levels
+-- ============================================================================
+select
+    coalesce(CONTENT.Type, 'ALL TYPES') as ContentType,
+    coalesce(CONTENT.Year, 'ALL YEARS') as ContentYear,
+    count(distinct HISTORY.Student_Email) as ViewerCount
+from
+    Fall25_S0003_T1_Content CONTENT
+    join Fall25_S0003_T1_Watch_History HISTORY
+        on CONTENT.Content_ID = HISTORY.Content_ID
+where
+    CONTENT.Year between '2020' and '2025'
+group by
+    cube(CONTENT.Type, CONTENT.Year)
+order by
+    ContentType,
+    ContentYear;
+
+/* Example Output:
+    Content Type    Content Year    Viewer Count
+    --------------- --------------- ------------
+    ALL TYPES       2020                      10
+    ALL TYPES       2021                      32
+    ALL TYPES       2022                      25
+    ALL TYPES       2023                      26
+    ALL TYPES       2024                      24
+    ALL TYPES       2025                      27
+    ALL TYPES       ALL YEARS                 76
+    Movie           2020                       3
+    Movie           2021                      20
+    Movie           2022                       8
+    Movie           2023                      13
+    Movie           2024                       6
+    Movie           2025                       8
+    Movie           ALL YEARS                 48
+    TV Shows        2020                       7
+    TV Shows        2021                      17
+    TV Shows        2022                      17
+    TV Shows        2023                      17
+    TV Shows        2024                      18
+    TV Shows        2025                      19
+    TV Shows        ALL YEARS                 63
+
+    21 rows selected.
+*/
+
+-- ============================================================================
+-- QUERY 6: DIVISION QUERY
+-- Find student names who have watched content in all available content types (Movie, TV Shows)
+-- ============================================================================
+select distinct
+    STUDENT.Name as StudentName
+from
+    Fall25_S0003_T1_Student STUDENT
+where
+    not exists 
+    (
+        select 
+            CONTENT.Type
+        from 
+            Fall25_S0003_T1_Content CONTENT
+        where
+            CONTENT.Type is not null
+        minus
+        select 
+            C2.Type
+        from 
+            Fall25_S0003_T1_Watch_History HISTORY
+            join Fall25_S0003_T1_Content C2
+                on HISTORY.Content_ID = C2.Content_ID
+        where 
+            HISTORY.Student_Email = STUDENT.Email
+        and
+            C2.Type is not null
+    )
+    and exists
+    (
+        select 
+            1
+        from 
+            Fall25_S0003_T1_Watch_History HISTORY
+        where 
+            HISTORY.Student_Email = STUDENT.Email
+    );
+
+/* Example Output:
+    Student Name
+    ------------------------------
+    Derek Taylor
+    Roy Williams
+    Alice Parrish
+    Emily Adams
+    Samantha Heath
+    Karina Taylor
+    Paul Mann
+    Trevor Rodriguez
+    Paul Moreno
+    Patricia Olson
+    William Long
+    Andrew Taylor
+    Timothy Saunders
+    Scott Glenn
+    Gilbert Williamson
+    Joel George
+    Jenna Mccoy
+    Teresa Johnson
+    Victor Houston
+    Denise Reid
+    Lauren Olson
+    Jeremy Torres
+    Michelle Little
+    Anthony Lynch
+    Victor Diaz
+    Grace Padilla
+    Sarah Johnston
+    Karen Norris
+    Dean Garcia
+    Heather Hernandez
+    Miranda Jackson
+    Alexandria Miller
+    Nicholas Wilson
+    Timothy Gonzales
+    Christy Sandoval
+    Christopher Haas
+    Yolanda Terrell
+    Daisy Arnold
+    Anthony Thompson
+    Shelly Evans
+    Kayla Dickson
+    Nicholas Donaldson
+    Evelyn Lewis
+    Harry Bishop
+    Nicole Butler
+    Lindsay Gray DDS
+    Rick Williams
+    Kyle Sexton
+    Charles Dyer
+    Ashley Miller
+    Sarah Robinson
+    Elizabeth Lopez
+    Regina Dixon
+    Laura Hernandez
+    Eileen Ramirez
+    Dr. Antonio Castillo
+    Kimberly Morgan
+    Joy Smith
+
+    58 rows selected.
+*/
+
+-- ============================================================================
+-- QUERY 7: WINDOWING WITH OVER
+-- Find the top 15 students showing college name, student name, total minutes watched, and average minutes for their college using windowing
+-- ============================================================================
+select
+    CollegeName,
+    StudentName,
+    TotalMinutes,
+    AvgCollegeMinutes
+from
+(
+    select
+        COLLEGE.Name as CollegeName,
+        STUDENT.Name as StudentName,
+        sum(to_number(HISTORY.Duration)) as TotalMinutes,
+        avg(sum(to_number(HISTORY.Duration))) over 
+        (
+            partition by COLLEGE.College_ID
+        ) as AvgCollegeMinutes
+    from
+        Fall25_S0003_T1_College COLLEGE
+        join Fall25_S0003_T1_Student STUDENT
+            on COLLEGE.College_ID = STUDENT.College_ID
+        join Fall25_S0003_T1_Watch_History HISTORY
+            on STUDENT.Email = HISTORY.Student_Email
+    group by
+        COLLEGE.Name,
+        COLLEGE.College_ID,
+        STUDENT.Name
+)
+order by
+    AvgCollegeMinutes desc,
+    TotalMinutes desc
+fetch first 15 rows only;
+
+/* Example Output:
+    College Name                        Student Name                   Total Minutes Avg College Minutes
+    ----------------------------------- ------------------------------ ------------- -------------------
+    North Gabrielle University          Derek Taylor                             686              686.00
+    Allisonburgh University             Laura Hernandez                          744              658.00
+    Allisonburgh University             Tracy Freeman                            686              658.00
+    Allisonburgh University             Timothy Saunders                         662              658.00
+    Allisonburgh University             Andrew Taylor                            540              658.00
+    Leonardshire University             Nicole Butler                            884              548.67
+    Leonardshire University             Brian Salazar                            492              548.67
+    Leonardshire University             Hannah Kelly                             270              548.67
+    Maryville University                Eileen Ramirez                           540              540.00
+    West Christinaton University        Alice Parrish                           1212              532.00
+    West Christinaton University        Heather Hernandez                        404              532.00
+    West Christinaton University        Shelly Evans                             390              532.00
+    West Christinaton University        Michelle Hernandez                       330              532.00
+    West Christinaton University        Emily Adams                              324              532.00
+    Millsside University                Christopher Haas                         942              482.00
+
+    15 rows selected.
+*/
+
+-- ============================================================================
+-- QUERY 8: LIKE OPERATOR WITH ORDER BY
+-- Find the top 15 content titles containing the letter 'a' and show their content title, viewer count, and average rating
+-- ============================================================================
+select
+    CONTENT.Title as ContentTitle,
+    count(distinct HISTORY.Student_Email) as ViewerCount,
+    avg(to_number(WATCHES.Rating)) as AvgRating
+from
+    Fall25_S0003_T1_Content CONTENT
+    join Fall25_S0003_T1_Watch_History HISTORY
+        on CONTENT.Content_ID = HISTORY.Content_ID
+    left join Fall25_S0003_T1_Watches WATCHES
+        on HISTORY.Student_Email = WATCHES.Student_Email
+        and CONTENT.Content_ID = WATCHES.Content_ID
+where
+    CONTENT.Title like '%a%'
+group by
+    CONTENT.Title
+order by
+    AvgRating desc nulls last,
+    ViewerCount desc
+fetch first 15 rows only;
+
+/* Example Output:
+    Content Title                                      Viewer Count Avg Rating
+    -------------------------------------------------- ------------ ----------
+    Assimilated modular superstructure                            3      10.00
+    Distributed upward-trending budgetary management              5       9.00
+    Triple-buffered 5thgeneration installation                    5       8.00
+    Centralized context-sensitive instruction set                 8       7.00
+    Stand-alone mobile policy                                     4       7.00
+    Proactive actuating instruction set                           6       5.00
+    Devolved maximized implementation                             6       4.00
+    Distributed 3rdgeneration methodology                         4       2.00
+    Self-enabling regional secured line                          10
+    Reverse-engineered radical budgetary management               7
+    Team-oriented non-volatile access                             7
+    Organized clear-thinking adapter                              7
+    Triple-buffered even-keeled adapter                           7
+    Open-source 6thgeneration strategy                            7
+    Streamlined contextually-based migration                      7
+
+    15 rows selected.
+*/
