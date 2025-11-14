@@ -11,7 +11,7 @@ license_ID_List = []
 #Creating values for Fall25_S0003_T1_College
 # Reduced to 25 colleges so we can have more students per college
 with open("projectDBinsert.sql", "w") as f:
-    for _ in range(25):
+    for _ in range(40):
         name = fake.city().replace("'", "''") + " University"
         college_id = str(fake.random_int(min=1, max=99999999)).zfill(8)
         phone = fake.msisdn()[:10]  # ensures numeric format, 12 digits max
@@ -26,8 +26,8 @@ with open("projectDBinsert.sql", "w") as f:
         f.write(insert_stmt)
     f.close()
 
-#Creating values for Fall25_S0003_T1_Student
-# Increased to 100 students, randomly distributed across 25 colleges (avg 4 per college)
+# Creating values for Fall25_S0003_T1_Student
+# Increased to 100 students, randomly distributed across 40 colleges (avg 2.5 per college)
 with open("projectDBinsert.sql","+a") as f:
     for _ in range(100):
         name = fake.name().replace("'", "''")
@@ -51,7 +51,7 @@ with open("projectDBinsert.sql","+a") as f:
 #Creating values for Fall25_S0003_T1_Content_Provider
 # Reduced to 20 providers so each can have multiple licenses/content
 with open("projectDBinsert.sql","+a") as f:
-    for _ in range(20):
+    for _ in range(40):
         name = fake.company()
         content_id = str(fake.random_int(min=1, max=99999999)).zfill(8)
         content_id_List.append(content_id)
@@ -69,7 +69,7 @@ with open("projectDBinsert.sql","+a") as f:
     f.close()
 
 #Creating values for Fall25_S0003_T1_License 
-# Increased to 80 licenses across 20 providers (avg 4 licenses per provider)
+# Increased to 80 licenses across 40 providers (avg 2 licenses per provider)
 with open("projectDBinsert.sql", "+a") as f:
     for _ in range(80):
         license_ID = str(fake.random_int(min=1, max=99999999)).zfill(8)
@@ -180,7 +180,7 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-#Creating values for Fall25_S0003_T1_Favorite_Content
+# Creating values for Fall25_S0003_T1_Favorite_Content
 with open("projectDBinsert.sql", "+a") as f:
     for _ in range(80):
         content_id = random.choice(actual_content_id_List)
@@ -195,7 +195,7 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-#Creating values for Fall25_S0003_T1_Favorite_Genre
+# Creating values for Fall25_S0003_T1_Favorite_Genre
 with open("projectDBinsert.sql", "+a") as f:
     for _ in range(100):
         Genre = fake.random_element(elements=("Action","Drama","Romance","Adventure", "Thiller", "Mystery", "Comedy", "Western"))
@@ -210,9 +210,9 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-#Creating values for Fall25_S0003_T1_Partnership_Information
+# Creating values for Fall25_S0003_T1_Partnership_Information
 with open("projectDBinsert.sql", "+a") as f:
-    for _ in range(25):
+    for _ in range(40):
         SEndDate = datetime(2024,1,1)
         Start = fake.date_between(SEndDate)
         EStartDate = datetime(2025,1,1)
@@ -230,9 +230,9 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-#Fall25_S0003_T1_Location
+# Fall25_S0003_T1_Location
 with open("projectDBinsert.sql", "+a") as f:
-    for _ in range(25):
+    for _ in range(40):
         State = fake.state_abbr()
         zipcode = fake.zipcode()
         city = fake.city().replace("'", "''")
@@ -248,7 +248,7 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-#Fall25_S0003_T1_Genre
+# Fall25_S0003_T1_Genre
 with open("projectDBinsert.sql", "+a") as f:
     for _ in range(80):
         Genre = fake.random_element(elements=("Action","Drama","Romance","Adventure", "Thiller", "Mystery", "Comedy", "Western"))
@@ -263,9 +263,9 @@ with open("projectDBinsert.sql", "+a") as f:
     f.flush()
     f.close()
 
-#Creating values for Fall25_S0003_T1_Language
+# Creating values for Fall25_S0003_T1_Language
 with open("projectDBinsert.sql", "+a") as f:
-    for _ in range(80):
+    for _ in range(40):
         Language = fake.random_element(elements=("Spanish","English","French","Russian", "Portuguese", "German", "Hindi", "Arabic","Japanese","Korean"))
         content_id = actual_content_id_List[_]
 

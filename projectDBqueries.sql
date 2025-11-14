@@ -57,21 +57,17 @@ order by
 /* Example Output:
     College Name                        Total Watches Avg Duration
     ----------------------------------- ------------- ------------
-    Millsside University                           26       129.77
-    Mccartyton University                          24       110.33
-    North Kaitlyn University                       22       126.82
-    Lake Gail University                           21       121.71
-    New Debra University                           19       115.47
-    Allisonburgh University                        18       146.22
-    West Christinaton University                   16       166.25
-    Lynnmouth University                           16       116.38
-    North Beverly University                       15        83.60
-    Simsfurt University                            14        78.57
-    New Patrickburgh University                    14        76.00
-    South Trevor University                        13       152.92
-    Robinsonmouth University                       13       137.38
+    Samueltown University                          18       148.67
+    Priceburgh University                          15       102.67
+    West Kaylaport University                      14       132.14
+    East Sharon University                         14       143.57
+    Loriland University                            12       115.17
+    South Angelton University                      12        67.83
+    Ryanmouth University                           11        95.09
+    Roweberg University                             8       135.00
+    Davidside University                            8        29.75
 
-    13 rows selected.
+    9 rows selected.
 */
 
 -- ============================================================================
@@ -108,28 +104,28 @@ order by
 fetch first 20 rows only;
 
 /* Example Output:
-    Student Name                   Watch Count
+   Student Name                   Watch Count
     ------------------------------ -----------
-    Jeremy Torres                            8
-    Timothy Gonzales                         7
-    Nicole Butler                            7
-    Christopher Haas                         7
-    Gilbert Williamson                       7
-    Timothy Saunders                         7
-    Sarah Robinson                           6
-    Trevor Rodriguez                         6
-    Nicholas Donaldson                       6
-    Evelyn Lewis                             5
-    Charles Dyer                             5
-    Scott Glenn                              5
-    Derek Taylor                             5
-    Ashley Miller                            5
-    Elizabeth Lopez                          5
-    Tracy Freeman                            5
-    Alice Parrish                            5
-    Daniel Burgess                           5
-    Anthony Thompson                         5
-    Lauren Olson                             5
+    Angela Taylor                           12
+    Jerome James                             8
+    Heather Rush                             7
+    Cindy Rivera                             7
+    Daniel Murphy                            7
+    Gerald Barnes                            6
+    Kaitlyn Becker                           6
+    Alyssa Dodson                            6
+    Jesse Ferrell                            6
+    Nicole Zimmerman                         6
+    Alisha Schneider                         6
+    William Fry                              6
+    Tara Oliver                              6
+    Steven Hoffman                           5
+    Jessica Ramirez                          5
+    David Parrish                            5
+    Catherine Harper                         5
+    Emily Collins                            5
+    Christopher Brown                        5
+    Jennifer Robinson                        5
 
     20 rows selected.
 */
@@ -169,26 +165,26 @@ fetch first 20 rows only;
 /* Example Output:
     Content Title                                      Watch Count
     -------------------------------------------------- -----------
-    Self-enabling regional secured line                         10
-    Centralized context-sensitive instruction set                8
-    Streamlined contextually-based migration                     7
-    Organized clear-thinking adapter                             7
-    Triple-buffered even-keeled adapter                          7
-    Open-source 6thgeneration strategy                           7
-    Profit-focused systemic synergy                              7
-    Reverse-engineered radical budgetary management              7
-    Team-oriented non-volatile access                            7
-    Proactive actuating instruction set                          6
-    Devolved maximized implementation                            6
-    Reverse-engineered systemic open system                      6
-    Front-line attitude-oriented forecast                        6
-    Managed attitude-oriented support                            6
-    Re-engineered composite infrastructure                       6
-    Streamlined national system engine                           6
-    Programmable stable extranet                                 6
-    Triple-buffered impactful application                        6
-    Automated impactful architecture                             5
-    Sharable grid-enabled time-frame                             5
+    Optimized needs-based productivity                           7
+    Managed web-enabled capability                               7
+    User-centric attitude-oriented focus group                   7
+    Business-focused disintermediate paradigm                    7
+    Pre-emptive coherent concept                                 6
+    Profit-focused real-time throughput                          6
+    Polarized exuding artificial intelligence                    6
+    Cross-group bottom-line pricing structure                    6
+    Grass-roots analyzing synergy                                6
+    Profit-focused radical algorithm                             6
+    Operative full-range definition                              6
+    Expanded human-resource strategy                             6
+    Synergized solution-oriented neural-net                      6
+    Seamless executive throughput                                6
+    Total exuding forecast                                       6
+    Team-oriented upward-trending conglomeration                 6
+    Synergized dedicated moderator                               6
+    Extended static matrices                                     5
+    Universal mobile matrices                                    5
+    Balanced systematic algorithm                                5
 
     20 rows selected.
 */
@@ -225,31 +221,31 @@ fetch first 25 rows only;
 /* Example Output:
     Provider Name                       License Type            Total Cost
     ----------------------------------- -------------------- -------------
-    ALL PROVIDERS                       ALL TYPES               1142341.16
-    Nguyen, Compton and Graham          ALL TYPES                284023.49
-    Morgan, Hines and Ferguson          ALL TYPES                205745.05
-    Black-White                         ALL TYPES                146540.60
-    Morgan, Hines and Ferguson          Revenue-sharing          132153.71
-    Gonzalez, Bell and Wilcox           ALL TYPES                127836.30
-    Lane, Lopez and Chapman             ALL TYPES                101349.73
-    Black-White                         CC                        99209.39
-    Nguyen, Compton and Graham          CC                        98914.36
-    Nguyen, Compton and Graham          Revenue-sharing           97554.41
-    West, Adkins and Stephens           ALL TYPES                 95585.70
-    James, Brown and Harris             ALL TYPES                 92584.39
-    West, Adkins and Stephens           CC                        89907.45
-    Nguyen, Compton and Graham          Fixed                     86493.87
-    James, Brown and Harris             Fixed                     85762.27
-    Lane, Lopez and Chapman             Fixed                     71107.89
-    Gonzalez, Bell and Wilcox           Royalty-Based             63699.79
-    Gonzalez, Bell and Wilcox           CC                        59222.02
-    Morgan, Hines and Ferguson          Royalty-Based             46281.77
-    Black-White                         Fixed                     38961.37
-    Morgan, Hines and Ferguson          Time-based                27308.89
-    Hunter-Nelson                       ALL TYPES                 24174.28
-    Hunter-Nelson                       CC                        23457.38
-    Lane, Lopez and Chapman             Royalty-Based             22170.38
-    Hanna-Middleton                     ALL TYPES                 13217.52
+    ALL PROVIDERS                       ALL TYPES                953842.04
+    Williams-Martin                     ALL TYPES                170116.23
+    Williams-Martin                     Revenue-sharing          153054.16
+    Campbell, Walker and King           Time-based               107241.33
+    Campbell, Walker and King           ALL TYPES                107241.33
+    Adams, Johnson and Reed             ALL TYPES                 92193.54
+    Adams, Johnson and Reed             Time-based                85502.67
+    Whitney and Sons                    Time-based                83782.14
+    Whitney and Sons                    ALL TYPES                 83782.14
+    Ortega-Mcguire                      ALL TYPES                 78495.62
+    Ortega-Mcguire                      Revenue-sharing           78401.53
+    Hernandez, Mitchell and Chan        ALL TYPES                 66733.40
+    Butler and Sons                     Royalty-Based             64679.28
+    Butler and Sons                     ALL TYPES                 64679.28
+    Hurley, Mejia and Hunter            Time-based                64468.73
+    Hurley, Mejia and Hunter            ALL TYPES                 64468.73
+    Hernandez, Mitchell and Chan        Fixed                     59540.66
+    Burke, George and Guzman            ALL TYPES                 43847.63
+    Burke, George and Guzman            Revenue-sharing           43389.63
+    Allen, Johnson and Pope             ALL TYPES                 34193.79
+    Lopez Group                         ALL TYPES                 31785.53
+    Randall-Lin                         ALL TYPES                 31586.26
+    Allen, Johnson and Pope             Fixed                     27897.95
+    Randall-Lin                         Fixed                     26961.10
+    Ali, Phillips and Pacheco           ALL TYPES                 24439.84
 
     25 rows selected.
 */ 
@@ -277,29 +273,34 @@ order by
 /* Example Output:
     Content Type    Content Year    Viewer Count
     --------------- --------------- ------------
-    ALL TYPES       2020                      10
-    ALL TYPES       2021                      32
-    ALL TYPES       2022                      25
-    ALL TYPES       2023                      26
-    ALL TYPES       2024                      24
-    ALL TYPES       2025                      27
-    ALL TYPES       ALL YEARS                 76
-    Movie           2020                       3
-    Movie           2021                      20
-    Movie           2022                       8
-    Movie           2023                      13
-    Movie           2024                       6
-    Movie           2025                       8
-    Movie           ALL YEARS                 48
-    TV Shows        2020                       7
-    TV Shows        2021                      17
-    TV Shows        2022                      17
-    TV Shows        2023                      17
-    TV Shows        2024                      18
-    TV Shows        2025                      19
-    TV Shows        ALL YEARS                 63
+    ALL TYPES       2020                      22
+    ALL TYPES       2021                       9
+    ALL TYPES       2022                      36
+    ALL TYPES       2023                      33
+    ALL TYPES       2024                      19
+    ALL TYPES       2025                       9
+    ALL TYPES       ALL YEARS                 78
+    Movie           2020                       8
+    Movie           2021                       5
+    Movie           2022                       7
+    Movie           2023                      22
+    Movie           2024                       1
+    Movie           ALL YEARS                 38
+    Seasons         2020                       4
+    Seasons         2022                      18
+    Seasons         2023                       6
+    Seasons         2024                      14
+    Seasons         2025                       2
+    Seasons         ALL YEARS                 37
+    TV Shows        2020                      11
+    TV Shows        2021                       4
+    TV Shows        2022                      14
+    TV Shows        2023                       9
+    TV Shows        2024                       6
+    TV Shows        2025                       7
+    TV Shows        ALL YEARS                 43
 
-    21 rows selected.
+    26 rows selected.
 */
 
 -- ============================================================================
@@ -344,66 +345,33 @@ where
 /* Example Output:
     Student Name
     ------------------------------
-    Derek Taylor
-    Roy Williams
-    Alice Parrish
-    Emily Adams
-    Samantha Heath
-    Karina Taylor
-    Paul Mann
-    Trevor Rodriguez
-    Paul Moreno
-    Patricia Olson
-    William Long
-    Andrew Taylor
-    Timothy Saunders
-    Scott Glenn
-    Gilbert Williamson
-    Joel George
-    Jenna Mccoy
-    Teresa Johnson
-    Victor Houston
-    Denise Reid
-    Lauren Olson
-    Jeremy Torres
-    Michelle Little
-    Anthony Lynch
-    Victor Diaz
-    Grace Padilla
-    Sarah Johnston
-    Karen Norris
-    Dean Garcia
-    Heather Hernandez
-    Miranda Jackson
-    Alexandria Miller
-    Nicholas Wilson
-    Timothy Gonzales
-    Christy Sandoval
-    Christopher Haas
-    Yolanda Terrell
-    Daisy Arnold
-    Anthony Thompson
-    Shelly Evans
-    Kayla Dickson
-    Nicholas Donaldson
-    Evelyn Lewis
-    Harry Bishop
-    Nicole Butler
-    Lindsay Gray DDS
-    Rick Williams
-    Kyle Sexton
-    Charles Dyer
-    Ashley Miller
-    Sarah Robinson
-    Elizabeth Lopez
-    Regina Dixon
-    Laura Hernandez
-    Eileen Ramirez
-    Dr. Antonio Castillo
-    Kimberly Morgan
-    Joy Smith
+    Cindy Rivera
+    Heather Rush
+    Lisa Diaz
+    Gina Shields
+    Dana Guerrero
+    Angela Taylor
+    Jerome James
+    Karen Wise
+    Gerald Barnes
+    Daniel Murphy
+    Jessica Ramirez
+    Marie Sanchez
+    Jesse Ferrell
+    Kaitlyn Becker
+    Emily Collins
+    Alyssa Dodson
+    Megan Anderson
+    Jared Williams
+    Jonathon Davis
+    Tara Oliver
+    Sheryl Martinez
+    David Parrish
+    Christopher Garcia
+    Catherine Harper
+    Alisha Schneider
 
-    58 rows selected.
+    25 rows selected.
 */
 
 -- ============================================================================
@@ -444,21 +412,21 @@ fetch first 15 rows only;
 /* Example Output:
     College Name                        Student Name                   Total Minutes Avg College Minutes
     ----------------------------------- ------------------------------ ------------- -------------------
-    North Gabrielle University          Derek Taylor                             686              686.00
-    Allisonburgh University             Laura Hernandez                          744              658.00
-    Allisonburgh University             Tracy Freeman                            686              658.00
-    Allisonburgh University             Timothy Saunders                         662              658.00
-    Allisonburgh University             Andrew Taylor                            540              658.00
-    Leonardshire University             Nicole Butler                            884              548.67
-    Leonardshire University             Brian Salazar                            492              548.67
-    Leonardshire University             Hannah Kelly                             270              548.67
-    Maryville University                Eileen Ramirez                           540              540.00
-    West Christinaton University        Alice Parrish                           1212              532.00
-    West Christinaton University        Heather Hernandez                        404              532.00
-    West Christinaton University        Shelly Evans                             390              532.00
-    West Christinaton University        Michelle Hernandez                       330              532.00
-    West Christinaton University        Emily Adams                              324              532.00
-    Millsside University                Christopher Haas                         942              482.00
+    Alvarezbury University              Gerald Barnes                            854              800.00
+    Alvarezbury University              Jessica Ramirez                          746              800.00
+    New Christopher University          Heather Rush                             744              744.00
+    Samueltown University               Nicole Zimmerman                         906              669.00
+    Samueltown University               Jerome James                             840              669.00
+    Samueltown University               Carl Long                                690              669.00
+    Samueltown University               Colleen Moran                            240              669.00
+    Gallagherfurt University            Angela Taylor                            636              636.00
+    Banksview University                Christopher Brown                        626              626.00
+    South Natalie University            William Fry                              902              601.00
+    South Natalie University            Karen Wise                               300              601.00
+    Lisaview University                 Jennifer Robinson                        576              576.00
+    East Trevor University              Cindy Rivera                            1016              544.00
+    East Trevor University              David Hill                                72              544.00
+    East Sharon University              Jesse Ferrell                           1164              502.50
 
     15 rows selected.
 */
@@ -490,21 +458,21 @@ fetch first 15 rows only;
 /* Example Output:
     Content Title                                      Viewer Count Avg Rating
     -------------------------------------------------- ------------ ----------
-    Assimilated modular superstructure                            3      10.00
-    Distributed upward-trending budgetary management              5       9.00
-    Triple-buffered 5thgeneration installation                    5       8.00
-    Centralized context-sensitive instruction set                 8       7.00
-    Stand-alone mobile policy                                     4       7.00
-    Proactive actuating instruction set                           6       5.00
-    Devolved maximized implementation                             6       4.00
-    Distributed 3rdgeneration methodology                         4       2.00
-    Self-enabling regional secured line                          10
-    Reverse-engineered radical budgetary management               7
-    Team-oriented non-volatile access                             7
-    Organized clear-thinking adapter                              7
-    Triple-buffered even-keeled adapter                           7
-    Open-source 6thgeneration strategy                            7
-    Streamlined contextually-based migration                      7
+    Synergized solution-oriented neural-net                       6       8.00
+    Implemented optimizing info-mediaries                         5       8.00
+    Team-oriented upward-trending conglomeration                  6       6.00
+    Expanded human-resource strategy                              6       4.00
+    Fully-configurable homogeneous architecture                   4       4.00
+    Ameliorated background frame                                  2       2.00
+    Optimized needs-based productivity                            7
+    Business-focused disintermediate paradigm                     7
+    Managed web-enabled capability                                7
+    User-centric attitude-oriented focus group                    7
+    Grass-roots analyzing synergy                                 6
+    Seamless executive throughput                                 6
+    Total exuding forecast                                        6
+    Synergized dedicated moderator                                6
+    Operative full-range definition                               6
 
     15 rows selected.
 */
