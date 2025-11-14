@@ -92,8 +92,8 @@ WHERE
 -- ============================================================================
 UPDATE Fall25_S0003_T1_Student
 SET 
-    Major = 'Bussiness',
-    College_ID = '21745521'
+    Major = 'Business',
+    College_ID = '28546814'
 WHERE 
     Email = 'testupdate.student@edu.com';
 
